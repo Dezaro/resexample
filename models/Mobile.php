@@ -1,9 +1,5 @@
 <?php
 
-/*
-  A domain Class to demonstrate RESTful web services
- */
-
 Class Mobile {
 
   private $mobiles = array(
@@ -13,10 +9,6 @@ Class Mobile {
       4 => 'LG G4',
       5 => 'Samsung Galaxy S6 edge',
       6 => 'OnePlus 2');
-
-  /*
-    you should hookup the DAO here
-   */
 
   public function getAllMobile() {
     return $this->mobiles;

@@ -1,11 +1,6 @@
 <?php
 
-/*
-  A simple RESTful webservices base class
-  Use this as a template and build upon it
- */
-
-class SimpleRest {
+class Controller {
 
   private $httpVersion = "HTTP/1.1";
   private $httpStatus = array(
@@ -49,16 +44,48 @@ class SimpleRest {
       502 => 'Bad Gateway',
       503 => 'Service Unavailable',
       504 => 'Gateway Timeout',
-      505 => 'HTTP Version Not Supported');
+      505 => 'HTTP Version Not Supported'
+  );
 
-  public function setHttpHeaders($contentType, $statusCode) {
+  protected function setHttpHeaders($contentType, $statusCode) {
     $statusMessage = $this->getHttpStatusMessage($statusCode);
     header($this->httpVersion . " " . $statusCode . " " . $statusMessage);
-    header("Content-Type:" . $contentType);
+    header("Content-Type: " . $contentType);
   }
 
-  public function getHttpStatusMessage($statusCode) {
+  protected function getHttpStatusMessage($statusCode) {
     return ($this->httpStatus[$statusCode]) ? $this->httpStatus[$statusCode] : $this->httpStatus[500];
+  }
+
+  protected function recursion($arr = array(), $anon = null) {
+    if($anon === null) {
+      $anon = function ($key, $item) {
+        print "$key => $item \n";
+      };
+    }
+    foreach($arr as $key => $item) {
+      if(is_array($item)) {
+        $this->recursion($item, $anon);
+      } else {
+        $anon($key, $item);
+      }
+    }
+  }
+
+  protected function setRequestContentType($statusCode, $data) {
+    $requestContentType = $_SERVER['HTTP_ACCEPT'];
+    $this->setHttpHeaders($requestContentType, $statusCode);
+    if(strpos($requestContentType, 'application/json') !== false) {
+      print $data;
+    }
+    if(strpos($requestContentType, 'text/html') !== false) {
+      print '<table border="1">';
+      print '<tr><th>KEY</th><th>ITEM</th></tr>';
+      $this->recursion(json_decode($data, true), function ($key, $item) {
+        print '<tr><td>' . $key . '</td><td>' . $item . '</td></tr>';
+      });
+      print '</table>';
+    }
   }
 
 }

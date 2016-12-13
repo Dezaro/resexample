@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Simpsons
- *
- * @author Dezaro
- */
 class Simpsons {
 
   private $data = '{
@@ -21,7 +10,25 @@ class Simpsons {
       "name": "Lisa",
       "email": "lisa@simpsons.com",
       "telephone": "5551111224",
-      "birthDate": "05/10/1998"
+      "birthDate": "05/10/1998",
+      "testing": [
+        {
+          "id": "2",
+           "name": "Lisa",
+          "email": "lol@simpsons.com",
+          "telephone": "5551111224",
+          "birthDate": "07/17/1995",
+          "testing": [
+              {
+                "id": "324",
+                "name": "Lisa213",
+                "email": "lol@s3impsons.com",
+                "telephone": "555112311224",
+                "birthDate": "07/3417/1995"
+              }
+            ]
+        }
+      ]
     },
     {
       "id": "2",

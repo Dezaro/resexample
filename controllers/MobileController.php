@@ -1,11 +1,8 @@
 <?php
 
-require_once("SimpleRest.php");
-require_once("Mobile.php");
+class MobileController extends Controller {
 
-class MobileRestHandler extends SimpleRest {
-
-  public function getAllMobiles() {
+  public function allMobilesAction() {
 
     $mobile = new Mobile();
     $rawData = $mobile->getAllMobile();
@@ -56,7 +53,7 @@ class MobileRestHandler extends SimpleRest {
     return $xml->asXML();
   }
 
-  public function getMobile($id) {
+  public function getMobileAction($id) {
 
     $mobile = new Mobile();
     $rawData = $mobile->getMobile($id);
